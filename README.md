@@ -1,6 +1,6 @@
 # Medieval 2 Optimal Troops Recruitment
 
-When not reading about finance or poker I like to play Medieval 2 (probably one of the best strategic games ever created).
+When not reading about finance or poker I like to play Stronghold Legends.
 
 In the game you need to make lots of decisions and it would be great if they were all optimal. 
 The aim of this project is to optimize the decision process related to the trrops recruitment. 
