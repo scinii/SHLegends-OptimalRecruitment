@@ -1,0 +1,8 @@
+Type,Hit points,Damage,Miss Arm,Blade Arm,Imp Arm,Walk,Run,Points,Gold Cost,Honour Cost
+Spearman,3000,6,1,1,1,2,4,6,6,0
+Archer,3000,2,1,2,2,2,5,8,12,0
+Crossbowman,6000,2,0.5,1.2,1.2,1.5,2.5,12,12,0
+Pikeman,18000,4,0.5,0.15,0.15,1.5,2.5,12,10,0
+Maceman,6000,15,0.75,0.5,0.5,3,8,12,10,0
+Swordsman,15000,20,0.1,0.25,0.25,1,2,20,40,5
+Knight,20000,70,0.06,0.2,0.2,3,8,100,200,50
