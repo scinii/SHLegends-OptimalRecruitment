@@ -15,7 +15,7 @@ from amplpy import AMPL
     add_to_path(r"full path to the AMPL installation directory")
 """
 
-def get_optimal_troops(avaliable_gold, avaliable_honour):
+def get_optimal_troops(avaliable_gold, avaliable_honour, avaliable_people):
 
     troops_stats = pd.read_csv("sh_legends_troops_stats.csv")
     troops = AMPL()
@@ -23,19 +23,20 @@ def get_optimal_troops(avaliable_gold, avaliable_honour):
     troops.option["solver"] = "highs"
 
     troops.set["U"] = troops_stats['Type'].values
-    troops.param["health"] = troops_stats['Hit points'].values
-    troops.param["damage"] = troops_stats['Damage'].values
-    troops.param["vuln"] = (troops_stats['Miss Arm'] + troops_stats['Blade Arm'] + troops_stats['Imp Arm']).values
-    troops.param["agility"] = troops_stats['Run'].values
+    troops.param["health"] = (1/11500) * troops_stats['Hit points'].values
+    troops.param["damage"] = (1/38) * troops_stats['Damage'].values
+    troops.param["vuln"] = ((1/0.53) * troops_stats['Miss Arm'] + (1/0.6) *troops_stats['Blade Arm'] + (1/0.6) *troops_stats['Imp Arm']).values
+    troops.param["agility"] = (1/6) *  troops_stats['Run'].values
     troops.param["gold_cost"] = troops_stats['Gold Cost'].values
     troops.param["hon_cost"] = troops_stats['Honour Cost'].values
     troops.param["avaliable_gold"] = avaliable_gold
     troops.param["avaliable_honour"] = avaliable_honour
+    troops.param["avaliable_people"] = avaliable_people
 
     troops.solve()
 
     return troops
 
-t = get_optimal_troops(10000,1000000)
+t = get_optimal_troops(1000,10000,10)
 
 print( t.var["x"].to_dict() )
