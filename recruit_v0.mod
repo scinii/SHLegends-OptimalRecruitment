@@ -39,9 +39,6 @@ subject to capital_constraints: sum{u in U} x[u] * gold_cost[u] <= avaliable_gol
 subject to honour_constraint: sum{u in U} x[u] * hon_cost[u] <= avaliable_honour;
 subject to people_constraint: sum{u in U} x[u] <= avaliable_people;
 
-
-# New-Stuff
-
 subject to bow_constraint: x['Archer'] <= avaliable_bow;
 subject to crossbow_constraint: x['Crossbowman'] <= avaliable_crossbow;
 subject to spearman_constraint: x['Spearman'] <= avaliable_spear;
