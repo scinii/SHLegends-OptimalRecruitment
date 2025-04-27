@@ -1,5 +1,6 @@
 import pandas as pd
 from amplpy import AMPL
+from collections import Counter
 
 """
     avaliable_resources = {
@@ -67,7 +68,7 @@ def get_optimal_troops(resources:dict):
 
     troops.solve()
 
-    return troops.var["x"].to_dict(),troops.var["y"].to_dict(),troops.var["z"].to_dict()
+    return troops
 
 
 avaliable_resources = {
@@ -84,4 +85,23 @@ avaliable_resources = {
     "avaliable_plate": 1
     }
 
-print(get_optimal_troops(avaliable_resources))
+troops_names = pd.read_excel("sh_legends_data.xlsx", engine='openpyxl', sheet_name = "troops_stats")["Type"].values
+armory_names = pd.read_excel("sh_legends_data.xlsx", engine='openpyxl', sheet_name="armory_data")
+
+result = get_optimal_troops(avaliable_resources)
+
+create_troops = result.var["x"].to_dict()
+buy_armory = Counter(result.var["y"].to_dict())
+sell_armory = result.var["z"].to_dict()
+net_armory = Counter(buy_armory)
+net_armory.subtract(sell_armory)
+
+print("You should buy the following troops:")
+for key_troops, value_troops in create_troops.items():
+    if value_troops != 0:
+        print(f"{key_troops}: {value_troops}")
+
+print("You should do the following in the armory:")
+for key_armory, value_armory in net_armory.items():
+    if value_armory != 0:
+        print(f"{key_armory}: {value_armory}")
