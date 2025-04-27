@@ -45,20 +45,19 @@ The tool uses two datasets (that can be found in the installation folder):
 The available resources (to the player) are passed in a dictionary:
 
 ```python
-avaliable_resources = {
-    "avaliable_gold": ...,
-    "avaliable_honour": ...,
-    "avaliable_people": ...,
-    "avaliable_bow": ...,
-    "avaliable_crossbow": ...,
-    "avaliable_spear": ...,
-    "avaliable_mace": ...,
-    "avaliable_pike": ...,
-    "avaliable_sword": ...,
-    "avaiable_leather": ...,
-    "avaliable_plate": ...
-}
-
+    available_resources = {
+    "available_gold": ,
+    "available_honour": , 
+    "available_people": , 
+    "available_bow": ,
+    "available_crossbow": , 
+    "available_spear": , 
+    "available_mace": , 
+    "available_pike": , 
+    "available_sword": , 
+    "available_leather": , 
+    "available_plate": 
+    }
 ```
 
 ##  (Sample) Output
