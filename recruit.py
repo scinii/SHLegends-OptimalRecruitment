@@ -3,18 +3,18 @@ from amplpy import AMPL
 from collections import Counter
 
 """
-    avaliable_resources = {
-    "avaliable_gold": ,
-    "avaliable_honour": , 
-    "avaliable_people": , 
-    "avaliable_bow": ,
-    "avaliable_crossbow": , 
-    "avaliable_spear": , 
-    "avaliable_mace": , 
-    "avaliable_pike": , 
-    "avaliable_sword": , 
-    "avaiable_leather": , 
-    "avaliable_plate": 
+    available_resources = {
+    "available_gold": ,
+    "available_honour": , 
+    "available_people": , 
+    "available_bow": ,
+    "available_crossbow": , 
+    "available_spear": , 
+    "available_mace": , 
+    "available_pike": , 
+    "available_sword": , 
+    "available_leather": , 
+    "available_plate": 
     }
 
 """
@@ -23,8 +23,8 @@ from collections import Counter
 def get_optimal_troops(resources:dict):
 
     """
-    :param resources: the number of avaliable resources. It must be a dictionary (see above for details).
-    :return: The optimal number of troops to recruit.mod given the avaliable resources (which you can buy and sell).
+    :param resources: the number of available resources. It must be a dictionary (see above for details).
+    :return: The optimal number of troops to recruit.
     """
 
     troops_stats = pd.read_excel("sh_legends_data.xlsx", engine='openpyxl', sheet_name = "troops_stats")
@@ -53,55 +53,54 @@ def get_optimal_troops(resources:dict):
     troops.param["buy"] = armory_data["Buy Price"].values
     troops.param["sell"] = armory_data["Sell Price"].values
 
-    troops.param["avaliable_gold"] = resources["avaliable_gold"]
-    troops.param["avaliable_honour"] = resources["avaliable_honour"]
-    troops.param["avaliable_people"] = resources["avaliable_people"]
+    troops.param["available_gold"] = resources["available_gold"]
+    troops.param["available_honour"] = resources["available_honour"]
+    troops.param["available_people"] = resources["available_people"]
 
-    troops.param["avaliable_bow"] = resources["avaliable_bow"]
-    troops.param["avaliable_crossbow"] = resources["avaliable_crossbow"]
-    troops.param["avaliable_spear"] = resources["avaliable_spear"]
-    troops.param["avaliable_mace"] = resources["avaliable_mace"]
-    troops.param["avaliable_pike"] = resources["avaliable_pike"]
-    troops.param["avaliable_sword"] = resources["avaliable_sword"]
-    troops.param["avaliable_leather"] = resources["avaiable_leather"]
-    troops.param["avaliable_plate"] = resources["avaliable_plate"]
+    troops.param["available_bow"] = resources["available_bow"]
+    troops.param["available_crossbow"] = resources["available_crossbow"]
+    troops.param["available_spear"] = resources["available_spear"]
+    troops.param["available_mace"] = resources["available_mace"]
+    troops.param["available_pike"] = resources["available_pike"]
+    troops.param["available_sword"] = resources["available_sword"]
+    troops.param["available_leather"] = resources["available_leather"]
+    troops.param["available_plate"] = resources["available_plate"]
 
-    troops.solve()
+    troops.solve(verbose=False)
+
+    create_troops = troops.var["x"].to_dict()
+    buy_armory = troops.var["y"].to_dict()
+    sell_armory = troops.var["z"].to_dict()
+    net_armory = Counter(buy_armory)
+    net_armory.subtract(sell_armory)
+
+    print("You should buy the following troops:")
+    for key_troops, value_troops in create_troops.items():
+        if value_troops != 0:
+            print(f"{key_troops}: {value_troops}")
+
+    print("You should do the following in the armory:")
+    for key_armory, value_armory in net_armory.items():
+        if value_armory != 0:
+            print(f"{key_armory}: {value_armory}")
+
 
     return troops
 
 
-avaliable_resources = {
-    "avaliable_gold": 400,
-    "avaliable_honour": 50,
-    "avaliable_people": 150,
-    "avaliable_bow": 1,
-    "avaliable_crossbow": 100,
-    "avaliable_spear": 1,
-    "avaliable_mace": 1,
-    "avaliable_pike": 1,
-    "avaliable_sword": 1,
-    "avaiable_leather": 0,
-    "avaliable_plate": 1
+available_resources = {
+    "available_gold": 400,
+    "available_honour": 50,
+    "available_people": 150,
+    "available_bow": 1,
+    "available_crossbow": 100,
+    "available_spear": 1,
+    "available_mace": 1,
+    "available_pike": 1,
+    "available_sword": 1,
+    "available_leather": 0,
+    "available_plate": 1
     }
 
-troops_names = pd.read_excel("sh_legends_data.xlsx", engine='openpyxl', sheet_name = "troops_stats")["Type"].values
-armory_names = pd.read_excel("sh_legends_data.xlsx", engine='openpyxl', sheet_name="armory_data")
+get_optimal_troops(available_resources)
 
-result = get_optimal_troops(avaliable_resources)
-
-create_troops = result.var["x"].to_dict()
-buy_armory = Counter(result.var["y"].to_dict())
-sell_armory = result.var["z"].to_dict()
-net_armory = Counter(buy_armory)
-net_armory.subtract(sell_armory)
-
-print("You should buy the following troops:")
-for key_troops, value_troops in create_troops.items():
-    if value_troops != 0:
-        print(f"{key_troops}: {value_troops}")
-
-print("You should do the following in the armory:")
-for key_armory, value_armory in net_armory.items():
-    if value_armory != 0:
-        print(f"{key_armory}: {value_armory}")
