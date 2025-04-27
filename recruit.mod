@@ -33,11 +33,15 @@ param available_sword;
 param available_leather;
 param available_plate;
 
+param defence_coeff;
+param damage_coeff;
+param agility_coeff;
+
 
 # OBJECTIVE FUNCTION
 
 
-minimize objective_function: sum{u in U}x[u]*(vuln[u] - health[u] - damage[u] - agility[u] );
+minimize objective_function: sum{u in U}x[u]*(defence_coeff*(vuln[u] - health[u]) - damage_coeff*damage[u] - agility_coeff*agility[u]) + sum{a in A} (y[a]-z[a]) ;
 
 
 # CONSTRAINTS
@@ -63,3 +67,9 @@ subject to pike_sell_constraint: z['Pike'] <= available_pike + y['Pike'] ;
 subject to sword_sell_constraint: z['Sword'] <= available_sword + y['Sword'] ;
 subject to leather_sell_constraint: z['Leather'] <= available_leather + y['Leather'] ;
 subject to plate_sell_constraint: z['Plate'] <= available_plate + y['Plate'] ;
+
+
+
+
+
+

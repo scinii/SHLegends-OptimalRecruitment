@@ -20,10 +20,11 @@ from collections import Counter
 """
 
 
-def get_optimal_troops(resources:dict):
+def get_optimal_troops(resources:dict, prioritize = "balanced") :
 
     """
-    :param resources: the number of available resources. It must be a dictionary (see above for details).
+    :param resources: dictionary for the number of available resources.
+    :param prioritize:
     :return: The optimal number of troops to recruit.
     """
 
@@ -66,7 +67,31 @@ def get_optimal_troops(resources:dict):
     troops.param["available_leather"] = resources["available_leather"]
     troops.param["available_plate"] = resources["available_plate"]
 
-    troops.solve(verbose=False)
+    if prioritize == "balanced":
+
+        troops.param["defence_coeff"] = 1
+        troops.param["damage_coeff"] = 1
+        troops.param["agility_coeff"] = 1
+
+    elif prioritize == "defensive":
+
+        troops.param["defence_coeff"] = 2
+        troops.param["damage_coeff"] = 0.5
+        troops.param["agility_coeff"] = 0.5
+
+    elif prioritize == "aggressive":
+
+        troops.param["defence_coeff"] = 0.5
+        troops.param["damage_coeff"] = 2
+        troops.param["agility_coeff"] = 0.5
+
+    else:
+
+        troops.param["defence_coeff"] = 0.5
+        troops.param["damage_coeff"] = 0.5
+        troops.param["agility_coeff"] = 2
+
+    troops.solve(verbose=True)
 
     create_troops = troops.var["x"].to_dict()
     buy_armory = troops.var["y"].to_dict()
@@ -85,22 +110,23 @@ def get_optimal_troops(resources:dict):
             print(f"{key_armory}: {value_armory}")
 
 
+
     return troops
 
 
 available_resources = {
-    "available_gold": 400,
-    "available_honour": 50,
-    "available_people": 150,
+    "available_gold": 40000,
+    "available_honour": 0,
+    "available_people": 10,
     "available_bow": 1,
-    "available_crossbow": 100,
+    "available_crossbow": 1,
     "available_spear": 1,
     "available_mace": 1,
     "available_pike": 1,
     "available_sword": 1,
-    "available_leather": 0,
+    "available_leather": 1,
     "available_plate": 1
     }
 
-get_optimal_troops(available_resources)
+get_optimal_troops(available_resources,"agile")
 

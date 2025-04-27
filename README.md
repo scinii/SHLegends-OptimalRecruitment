@@ -1,19 +1,5 @@
 #  Optimal Recruitment Tool for Stronghold Legends
 
-Given:
-- Your current gold, honour, and resources (bows, swords, etc.).
-- Troops stats (hit points, speed, ect.).
-- Armory market prices (buy/sell prices from the armory).
-
-The tool calculates the best combination of troops in order to maximize:
--  Defense (hit points).
--  Attack (damage output).
--  Agility (movement speed).
-
-while minimizing:
--  Vulnerability (to different weapons).
-
----
 
 ##  Inputs
 
@@ -81,7 +67,6 @@ If the value is negative then we are selling.
 
 ## TODO
 
-- [ ] Implement a GUI version. 
-- [ ] Allow users to define custom prioritization (e.g., damage over speed).
+- [ ] Implement a GUI version.
 - [ ] Create an executable file.
 
