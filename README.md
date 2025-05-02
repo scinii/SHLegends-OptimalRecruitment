@@ -1,7 +1,5 @@
 #  Optimal Recruitment Tool for Stronghold Legends
 
-A tool for optimal troop recruitment for Stronghold Legends 
-
 ##  Inputs
 
 The tool uses two datasets (that can be found in the installation folder):
@@ -50,7 +48,7 @@ The available resources (to the player) are passed in a dictionary:
 ### Recruitment Type
 The user may choose for the recruitment to be:
 1) Balanced: equal weights for defense, attack and agility.
-2) Defensive: prioritize defense and vulnerability.
+2) Defensive: maximize health and minimize vulnerability.
 3) Aggressive: prioritize damage.
 4) Agile: prioritize speed.
 
