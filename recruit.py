@@ -85,7 +85,7 @@ def get_optimal_troops(resources:dict, prioritize = "balanced") :
         troops.param["damage_coeff"] = 2
         troops.param["agility_coeff"] = 0.5
 
-    else:
+    elif prioritize == "agile":
 
         troops.param["defence_coeff"] = 0.5
         troops.param["damage_coeff"] = 0.5
@@ -113,20 +113,4 @@ def get_optimal_troops(resources:dict, prioritize = "balanced") :
 
     return troops
 
-
-available_resources = {
-    "available_gold": 40000,
-    "available_honour": 0,
-    "available_people": 10,
-    "available_bow": 1,
-    "available_crossbow": 1,
-    "available_spear": 1,
-    "available_mace": 1,
-    "available_pike": 1,
-    "available_sword": 1,
-    "available_leather": 1,
-    "available_plate": 1
-    }
-
-get_optimal_troops(available_resources,"agile")
 

@@ -1,5 +1,6 @@
 #  Optimal Recruitment Tool for Stronghold Legends
 
+A tool for optimal troop recruitment for Stronghold Legends 
 
 ##  Inputs
 
@@ -28,6 +29,7 @@ The tool uses two datasets (that can be found in the installation folder):
 | Leather     | 12         | 15        |
 | Plate       | 44         | 50        |
 
+### Available Resources
 The available resources (to the player) are passed in a dictionary:
 
 ```python
@@ -45,6 +47,13 @@ The available resources (to the player) are passed in a dictionary:
     "available_plate": 
     }
 ```
+### Recruitment Type
+The user may choose for the recruitment to be:
+1) Balanced: equal weights for defense, attack and agility.
+2) Defensive: prioritize defense and vulnerability.
+3) Aggressive: prioritize damage.
+4) Agile: prioritize speed.
+
 
 ##  (Sample) Output
 
@@ -66,6 +75,5 @@ If the value is negative then we are selling.
 
 ## TODO
 
-- [ ] Implement a GUI version.
-- [ ] Create an executable file.
+- [ ] Implement GUI.
 
