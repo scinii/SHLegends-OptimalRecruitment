@@ -71,7 +71,3 @@ Sword: -1
 
 If the value is negative then we are selling.
 
-## TODO
-
-- [ ] Implement GUI.
-
